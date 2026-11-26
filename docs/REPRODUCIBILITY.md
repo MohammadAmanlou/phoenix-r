@@ -1,0 +1,3 @@
+# Reproduction verification
+
+On 26 November 2026, the organized repository was checked with Python compileall. V2 and V4 were re-executed from independent copies via `scripts/reproduce.py`. The V2 144 LP checks and V4 1,432 analytic/Monte Carlo checks passed; V4 ran 960,000 synthetic dynamic trajectories, 600,000 stress trajectories, 27,372 deterministic allocations across 108 settings and 160 scripted room runs. All generated V2/V4 CSVs matched the archived text exactly (newline normalization); decompressed scripted JSONL matched byte-for-byte. V1 and V3 are preserved historical artifacts, not re-executed in this organization check. No real LLM or human trial was executed.
