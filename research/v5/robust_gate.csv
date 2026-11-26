@@ -1,0 +1,16 @@
+config,policy,searchF,gateF,n_per_truth,correct_false_claim,wrong_root_false_claim,false_correction_true_claim,mean_utility,conditional_null_bound_valid
+matched,nominal,0.025,0.025,5000,0.6224,0.0002,0.0012,0.3105,true
+matched,gate_12,0.025,0.12,5000,0.5664,0,0,0.2832,true
+matched,gate_30,0.025,0.3,5000,0.2772,0,0,0.1386,true
+matched,policy_and_gate_12,0.12,0.12,5000,0.5548,0,0,0.2774,true
+matched,policy_and_gate_30,0.3,0.3,5000,0.2706,0,0,0.1353,true
+shift,nominal,0.025,0.025,5000,0.5234,0.0384,0.0754,0.20479999999999998,false
+shift,gate_12,0.025,0.12,5000,0.4694,0.0008,0.002,0.23329999999999998,true
+shift,gate_30,0.025,0.3,5000,0.218,0,0,0.109,true
+shift,policy_and_gate_12,0.12,0.12,5000,0.5008,0.0006,0.0018,0.24919999999999998,true
+shift,policy_and_gate_30,0.3,0.3,5000,0.2398,0,0,0.1199,true
+correlated,nominal,0.025,0.025,5000,0.5282,0.1798,0.2844,0.03200000000000003,false
+correlated,gate_12,0.025,0.12,5000,0.4844,0.0374,0.0502,0.1984,false
+correlated,gate_30,0.025,0.3,5000,0.241,0.0002,0.0006,0.1201,true
+correlated,policy_and_gate_12,0.12,0.12,5000,0.5058,0.0336,0.049,0.2116,false
+correlated,policy_and_gate_30,0.3,0.3,5000,0.2486,0.0002,0.0002,0.12409999999999999,true
