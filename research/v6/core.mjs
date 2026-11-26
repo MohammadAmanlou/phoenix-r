@@ -1,9 +1,9 @@
 function caseFor(split,i){
   const base={smoke:100000,calibration:200000,test:300000}[split];
   if(base===undefined)throw Error("bad split");
-  let x=(base+i+12345)>>>0;const r=()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return(x>>>0)/4294967296};
+  let x=(base+Math.imul(i+1,0x9e3779b9))>>>0;const r=()=>{x=(x+0x6d2b79f5)>>>0;let z=Math.imul(x^(x>>>15),1|x);z^=z+Math.imul(z^(z>>>7),61|z);return((z^(z>>>14))>>>0)/4294967296};
   const shuffle=a=>{a=[...a];for(let j=a.length-1;j>0;j--){let k=Math.floor(r()*(j+1));[a[j],a[k]]=[a[k],a[j]]}return a};
-  const id=`${split}-${i}`,actual=20+Math.floor(r()*60),isFalse=i%2===0,stated=actual+(isFalse?1:0),official=new Set(shuffle([0,1,2,3]).slice(0,2));
+  const id=`${split}-${Math.floor(r()*4294967296).toString(16).padStart(8,"0")}-${Math.floor(r()*4294967296).toString(16).padStart(8,"0")}`,actual=20+Math.floor(r()*60),pairSeed=(base+Math.imul(Math.floor(i/2)+1,0x85ebca6b))>>>0,isFalse=((i%2)^((Math.imul(pairSeed^(pairSeed>>>16),0x45d9f3b)>>>30)&1))===0,stated=actual+(isFalse?1:0),official=new Set(shuffle([0,1,2,3]).slice(0,2));
   const records=Array.from({length:4},(_,g)=>Array.from({length:3},(_,j)=>{
     const lineage=`${id}-L${g}`,rid=`${lineage}-D${j}`,auth=official.has(g);
     return {id:rid,lineage,text:`Registry ${id}. ${auth?"Accredited independent registry":"Unofficial community bulletin"}. ${j===0?"Original":"Mirror of the same original"}. Reported value: ${auth?actual:stated}.`};
@@ -68,7 +68,8 @@ function cpUpper(k,n,alpha=.05){
 
 function summarize(rows){
  const arms=[];for(const assignment of ["clustered","dispersed"])for(const relay of ["snapshot","persistent"]){const a=rows.filter(r=>r.assignment===assignment&&r.relay===relay),p=a.filter(r=>r.is_false),n=a.filter(r=>!r.is_false),k=n.filter(r=>r.raw_refutation).length;
-  arms.push({assignment,relay,n_false:p.length,n_true:n.length,grounded_recovery:p.filter(r=>r.grounded_recovery).length,raw_refutation_false:p.filter(r=>r.raw_refutation).length,ungrounded_refutation_false:p.filter(r=>r.ungrounded_refutation).length,false_correction:k,upper95_true_claim_false_correction:cpUpper(k,n.length),invalid_outputs:a.reduce((s,r)=>s+r.invalid_outputs,0),calls:a.reduce((s,r)=>s+r.calls,0),mean_first_grounded_round:p.some(r=>r.grounded_recovery)?p.filter(r=>r.grounded_recovery).reduce((s,r)=>s+r.first_grounded_round,0)/p.filter(r=>r.grounded_recovery).length:null})}
+  const callRecords=a.flatMap(r=>r.trace.flatMap(t=>[...t.agents,t.reader]));const usage=callRecords.filter(x=>x.usage&&Number.isFinite(x.usage.prompt_tokens)&&Number.isFinite(x.usage.completion_tokens));const lat=callRecords.filter(x=>Number.isFinite(x.latency_ms));
+  arms.push({assignment,relay,usage_recorded_calls:usage.length,prompt_tokens:usage.length?usage.reduce((s,x)=>s+x.usage.prompt_tokens,0):null,completion_tokens:usage.length?usage.reduce((s,x)=>s+x.usage.completion_tokens,0):null,latency_recorded_calls:lat.length,total_latency_ms:lat.length?lat.reduce((s,x)=>s+x.latency_ms,0):null,n_false:p.length,n_true:n.length,grounded_recovery:p.filter(r=>r.grounded_recovery).length,raw_refutation_false:p.filter(r=>r.raw_refutation).length,ungrounded_refutation_false:p.filter(r=>r.ungrounded_refutation).length,false_correction:k,upper95_true_claim_false_correction:cpUpper(k,n.length),invalid_outputs:a.reduce((s,r)=>s+r.invalid_outputs,0),calls:a.reduce((s,r)=>s+r.calls,0),mean_first_grounded_round:p.some(r=>r.grounded_recovery)?p.filter(r=>r.grounded_recovery).reduce((s,r)=>s+r.first_grounded_round,0)/p.filter(r=>r.grounded_recovery).length:null})}
  const contrasts=[];for(const relay of ["snapshot","persistent"]){const pairs=new Map();for(const r of rows.filter(r=>r.relay===relay&&r.is_false)){if(!pairs.has(r.id))pairs.set(r.id,{});pairs.get(r.id)[r.assignment]=+r.grounded_recovery}const d=[...pairs.values()].filter(x=>Object.hasOwn(x,"clustered")&&Object.hasOwn(x,"dispersed")).map(x=>x.dispersed-x.clustered);const mean=d.reduce((s,x)=>s+x,0)/d.length,se=d.length>1?Math.sqrt(d.reduce((s,x)=>s+(x-mean)**2,0)/(d.length-1)/d.length):null;contrasts.push({relay,n_pairs:d.length,dispersed_minus_clustered: d.length?mean:null,normal_interval:se===null?null:[mean-1.96*se,mean+1.96*se]})}
  return {arms,contrasts,rooms:rows.length,calls:rows.reduce((s,r)=>s+r.calls,0)};
 }
@@ -80,7 +81,7 @@ async function selftest(){
  const rows=[];for(let i=0;i<40;i++){const c=caseFor("smoke",i);for(const assignment of ["clustered","dispersed"])for(const relay of ["snapshot","persistent"]){const r=await room(c,assignment,relay,scripted);rows.push(r);check(r.calls===16,"budget");check(r.invalid_outputs===0,"parse");check(!r.ungrounded_refutation,"oracle script");check(!r.is_false||relay!=="persistent"||r.grounded_recovery,"persistent recovery")}}
  const c=caseFor("test",100),bad=await room(c,"dispersed","persistent",async()=>({raw:'bad output'}));check(bad.invalid_outputs===16&&!bad.grounded_recovery,"invalid output handling");
  // A deliberately wrong reader must be scored as false correction rather than suppressed by a truth gate.
- const wrong=await room(caseFor("test",101),"dispersed","persistent",async req=>req.role==="agent"?{raw:JSON.stringify({share_id:req.docs[0].id})}:{raw:JSON.stringify(req.docs.length>=2?{verdict:"refute",citations:req.docs.slice(0,2).map(d=>d.id)}:{verdict:"insufficient",citations:[]})});check(wrong.raw_refutation&&wrong.ungrounded_refutation&&!wrong.grounded_recovery,"no oracle gate");
+ const wrongCase=[caseFor("test",100),caseFor("test",101)].find(c=>!c.isFalse); const wrong=await room(wrongCase,"dispersed","persistent",async req=>req.role==="agent"?{raw:JSON.stringify({share_id:req.docs[0].id})}:{raw:JSON.stringify(req.docs.length>=2?{verdict:"refute",citations:req.docs.slice(0,2).map(d=>d.id)}:{verdict:"insufficient",citations:[]})});check(wrong.raw_refutation&&wrong.ungrounded_refutation&&!wrong.grounded_recovery,"no oracle gate");
  return {checks,summary:summarize(rows)};
 }
 export {caseFor,parse,requestFor,scripted,room,cpUpper,summarize,selftest};
