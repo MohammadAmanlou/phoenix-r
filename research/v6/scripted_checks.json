@@ -5,6 +5,11 @@
       {
         "assignment": "clustered",
         "relay": "snapshot",
+        "usage_recorded_calls": 0,
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "latency_recorded_calls": 0,
+        "total_latency_ms": null,
         "n_false": 20,
         "n_true": 20,
         "grounded_recovery": 0,
@@ -19,6 +24,11 @@
       {
         "assignment": "clustered",
         "relay": "persistent",
+        "usage_recorded_calls": 0,
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "latency_recorded_calls": 0,
+        "total_latency_ms": null,
         "n_false": 20,
         "n_true": 20,
         "grounded_recovery": 20,
@@ -28,11 +38,16 @@
         "upper95_true_claim_false_correction": 0.13910834066826522,
         "invalid_outputs": 0,
         "calls": 640,
-        "mean_first_grounded_round": 3.2
+        "mean_first_grounded_round": 3.05
       },
       {
         "assignment": "dispersed",
         "relay": "snapshot",
+        "usage_recorded_calls": 0,
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "latency_recorded_calls": 0,
+        "total_latency_ms": null,
         "n_false": 20,
         "n_true": 20,
         "grounded_recovery": 20,
@@ -42,11 +57,16 @@
         "upper95_true_claim_false_correction": 0.13910834066826522,
         "invalid_outputs": 0,
         "calls": 640,
-        "mean_first_grounded_round": 1.65
+        "mean_first_grounded_round": 2.05
       },
       {
         "assignment": "dispersed",
         "relay": "persistent",
+        "usage_recorded_calls": 0,
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "latency_recorded_calls": 0,
+        "total_latency_ms": null,
         "n_false": 20,
         "n_true": 20,
         "grounded_recovery": 20,
@@ -56,7 +76,7 @@
         "upper95_true_claim_false_correction": 0.13910834066826522,
         "invalid_outputs": 0,
         "calls": 640,
-        "mean_first_grounded_round": 1.45
+        "mean_first_grounded_round": 1.75
       }
     ],
     "contrasts": [
@@ -81,5 +101,10 @@
     ],
     "rooms": 160,
     "calls": 2560
+  },
+  "additional_checks": {
+    "unique_ids": 600,
+    "balanced_false_cases": 300,
+    "total_cases": 600
   }
 }
