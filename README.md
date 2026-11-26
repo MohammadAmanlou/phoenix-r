@@ -14,6 +14,7 @@ Research prototype | November 2026 | Mohammad Amanlou
 | [research/v2](research/v2) | Repair-menu audit frontier, exact KL checks and LP results. |
 | [research/v3](research/v3) | Endogenous visibility, sequential auditing and robust stress tests. |
 | [research/v4](research/v4) | Persistent evidence bank, dynamic simulator, noisy replication stress test, allocation oracle and scripted text pilot. |
+| [research/v5](research/v5) | Fixed-budget adaptive search, exact small DP, robust certification, negative and stress results. |
 | [docs](docs) | Latest adversarial novelty assessment, caveats and publication gates. |
 | [scripts](scripts) | Reproduction entry point. |
 
@@ -43,3 +44,12 @@ Optional authentication is supplied through the local environment, never committ
 ## Evidence and novelty
 
 Read [the current novelty assessment](docs/NOVELTY_ASSESSMENT.md) before citing this project. The mathematical tools and many component ideas have strong precedents; the candidate research contribution is a specific controlled causal question about joint repair failure, prospective evidence creation versus retrospective observability, and a cost-matched intervention. Negative outcomes and limitations are part of the research record. No license has been assigned pending the author's decision.
+
+## V5 reproducibility (Node.js 18+, no packages)
+
+```bash
+node research/v5/adaptive_search.mjs
+node research/v5/robust_gate.mjs
+```
+
+Read [V5 report](research/v5/V5_REPORT.md) for conditional guarantees, new priority threats and failures under model misspecification. 336,000 synthetic policy-room trajectories; no actual LLM or human trial. The one-step lookahead does not uniformly beat posterior greedy. The V5 gate is valid only under a justified full-history conditional null bound. V5 is separate from the Python V1–V4 reproduction script.
