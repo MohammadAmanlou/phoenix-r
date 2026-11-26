@@ -15,6 +15,7 @@ Research prototype | November 2026 | Mohammad Amanlou
 | [research/v3](research/v3) | Endogenous visibility, sequential auditing and robust stress tests. |
 | [research/v4](research/v4) | Persistent evidence bank, dynamic simulator, noisy replication stress test, allocation oracle and scripted text pilot. |
 | [research/v5](research/v5) | Fixed-budget adaptive search, exact small DP, robust certification, negative and stress results. |
+| [research/v6](research/v6) | Matched-coverage factorial benchmark, scripted checks, resumable local LLM runner. |
 | [docs](docs) | Latest adversarial novelty assessment, caveats and publication gates. |
 | [scripts](scripts) | Reproduction entry point. |
 
@@ -53,3 +54,13 @@ node research/v5/robust_gate.mjs
 ```
 
 Read [V5 report](research/v5/V5_REPORT.md) for conditional guarantees, new priority threats and failures under model misspecification. 336,000 synthetic policy-room trajectories; no actual LLM or human trial. The one-step lookahead does not uniformly beat posterior greedy. The V5 gate is valid only under a justified full-history conditional null bound. V5 is separate from the Python V1–V4 reproduction script.
+
+## V6 real-model pilot (pending actual inference)
+
+```bash
+node research/v6/run.mjs --selftest
+ollama pull qwen3:4b-instruct
+node research/v6/run.mjs --backend llm --model qwen3:4b-instruct --split smoke --cases 2 --out local_runs/v6-qwen3-smoke
+```
+
+Start Ollama locally first. Record the exact model digest using `--revision` for research runs. See [V6 report](research/v6/V6_REPORT.md) for controlled design, limitations and independent calibration/test protocol. 160 scripted rooms / 2,560 calls and mock runner checks passed; no actual LLM trial yet. Do not conflate this with human evidence or external benchmark replication.
