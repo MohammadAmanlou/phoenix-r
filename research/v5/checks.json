@@ -1,0 +1,70 @@
+{
+  "tests": [
+    {
+      "config": "small_matched",
+      "exact_initial_value": 0.15775472363538096,
+      "states": 348,
+      "mc_value": 0.15266666666666667
+    }
+  ],
+  "configs": [
+    {
+      "name": "small_matched",
+      "m": 3,
+      "B": 8,
+      "p": 0.15,
+      "s": 0.7,
+      "f": 0.05,
+      "actualS": 0.7,
+      "actualF": 0.05,
+      "n": 3000
+    },
+    {
+      "name": "large_matched",
+      "m": 12,
+      "B": 24,
+      "p": 0.1,
+      "s": 0.65,
+      "f": 0.025,
+      "actualS": 0.65,
+      "actualF": 0.025,
+      "n": 3000
+    },
+    {
+      "name": "large_noisy",
+      "m": 12,
+      "B": 24,
+      "p": 0.1,
+      "s": 0.55,
+      "f": 0.1,
+      "actualS": 0.55,
+      "actualF": 0.1,
+      "n": 3000
+    },
+    {
+      "name": "null_shift",
+      "m": 12,
+      "B": 24,
+      "p": 0.1,
+      "s": 0.65,
+      "f": 0.025,
+      "actualS": 0.65,
+      "actualF": 0.12,
+      "n": 3000
+    },
+    {
+      "name": "root_correlated",
+      "m": 12,
+      "B": 24,
+      "p": 0.1,
+      "s": 0.65,
+      "f": 0.025,
+      "actualS": 0.65,
+      "actualF": 0.025,
+      "hot": 0.15,
+      "n": 3000
+    }
+  ],
+  "alpha": 0.05,
+  "trajectories": 186000
+}
