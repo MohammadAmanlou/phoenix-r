@@ -1,0 +1,7 @@
+{
+  "checks": 5,
+  "simulated_http_calls": 135,
+  "complete_rooms": 8,
+  "complete_room_calls": 128,
+  "scope": "In-memory mock transport and file adapters; no actual LLM or real Node filesystem/HTTP execution."
+}
