@@ -1,0 +1,85 @@
+{
+  "checks": 2145,
+  "summary": {
+    "arms": [
+      {
+        "assignment": "clustered",
+        "relay": "snapshot",
+        "n_false": 20,
+        "n_true": 20,
+        "grounded_recovery": 0,
+        "raw_refutation_false": 0,
+        "ungrounded_refutation_false": 0,
+        "false_correction": 0,
+        "upper95_true_claim_false_correction": 0.13910834066826522,
+        "invalid_outputs": 0,
+        "calls": 640,
+        "mean_first_grounded_round": null
+      },
+      {
+        "assignment": "clustered",
+        "relay": "persistent",
+        "n_false": 20,
+        "n_true": 20,
+        "grounded_recovery": 20,
+        "raw_refutation_false": 20,
+        "ungrounded_refutation_false": 0,
+        "false_correction": 0,
+        "upper95_true_claim_false_correction": 0.13910834066826522,
+        "invalid_outputs": 0,
+        "calls": 640,
+        "mean_first_grounded_round": 3.2
+      },
+      {
+        "assignment": "dispersed",
+        "relay": "snapshot",
+        "n_false": 20,
+        "n_true": 20,
+        "grounded_recovery": 20,
+        "raw_refutation_false": 20,
+        "ungrounded_refutation_false": 0,
+        "false_correction": 0,
+        "upper95_true_claim_false_correction": 0.13910834066826522,
+        "invalid_outputs": 0,
+        "calls": 640,
+        "mean_first_grounded_round": 1.65
+      },
+      {
+        "assignment": "dispersed",
+        "relay": "persistent",
+        "n_false": 20,
+        "n_true": 20,
+        "grounded_recovery": 20,
+        "raw_refutation_false": 20,
+        "ungrounded_refutation_false": 0,
+        "false_correction": 0,
+        "upper95_true_claim_false_correction": 0.13910834066826522,
+        "invalid_outputs": 0,
+        "calls": 640,
+        "mean_first_grounded_round": 1.45
+      }
+    ],
+    "contrasts": [
+      {
+        "relay": "snapshot",
+        "n_pairs": 20,
+        "dispersed_minus_clustered": 1,
+        "normal_interval": [
+          1,
+          1
+        ]
+      },
+      {
+        "relay": "persistent",
+        "n_pairs": 20,
+        "dispersed_minus_clustered": 0,
+        "normal_interval": [
+          0,
+          0
+        ]
+      }
+    ],
+    "rooms": 160,
+    "calls": 2560
+  }
+}
