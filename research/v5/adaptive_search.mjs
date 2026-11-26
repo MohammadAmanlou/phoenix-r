@@ -35,7 +35,7 @@ function experiment(){
       memo.set(k,best);return best;
     }
     // A one-step value-of-information rule with bounded local confirmation fallback.
-    // Fallback calculates P(crossing the gate within <=3 extra positives), given current posterior.
+    // Fallback scores consecutive positives needed to cross the gate, given current posterior.
     function pick(a,b,t,mode,rr,state){
       const {z,q}=stats(a,b);let best=-Infinity,jj=0;
       if(mode==="rotate")return (B-t)%m;
