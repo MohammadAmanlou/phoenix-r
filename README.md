@@ -64,3 +64,7 @@ node research/v6/run.mjs --backend llm --model qwen3:4b-instruct --split smoke -
 ```
 
 Start Ollama locally first. Record the exact model digest using `--revision` for research runs. See [V6 report](research/v6/V6_REPORT.md) for controlled design, limitations and independent calibration/test protocol. 160 scripted rooms / 2,560 calls and mock runner checks passed; no actual LLM trial yet. Do not conflate this with human evidence or external benchmark replication.
+
+## Proposal milestone and deferred empirical gates (26 Nov 2026)
+
+The doctoral research proposal does not require the applicant to execute a local LLM run before supervisor discussion. V6 remains an engineering/design-control milestone; actual LLM evaluation, independent calibration, external baseline reproduction, and human studies remain future research. The central hypothesis is an intervention-defined effect of AI-mediated joint evidence access and consensus cues on collective correction and its observability. Scripted effects are design controls, not evidence of human or LLM behavior. See [research roadmap](docs/RESEARCH_ROADMAP.md). No conference-readiness or world-first claim.
